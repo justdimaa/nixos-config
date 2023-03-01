@@ -188,38 +188,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
-  networking.firewall = {
-    allowedUDPPorts = [ 56134 ]; # Clients and peers can use the same port, see listenport
-  };
-
-  # Enable WireGuard
-  networking.wireguard.interfaces = {
-    # "wg0" is the network interface name. You can name the interface arbitrarily.
-    wg0 = {
-      # Determines the IP address and subnet of the client's end of the tunnel interface.
-      ips = [ "10.13.94.29/24" ];
-      listenPort = 56134; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-
-      # Path to the private key file.
-      privateKey = builtins.readFile ../../secrets/wg0-private-key;
-
-      peers = [
-        # For a client configuration, one peer entry for the server will suffice.
-        {
-          # Public key of the server (not a file path).
-          publicKey = builtins.readFile ../../secrets/wg0-public-key;
-
-          # Forward all the traffic via VPN.
-          allowedIPs = [ "0.0.0.0/5" "8.0.0.0/7" "11.0.0.0/8" "12.0.0.0/6" "16.0.0.0/4" "32.0.0.0/3" "64.0.0.0/2" "128.0.0.0/2" "192.0.0.0/9" "192.128.0.0/11" "192.160.0.0/13" "192.169.0.0/16" "192.170.0.0/15" "192.172.0.0/14" "192.176.0.0/12" "192.192.0.0/10" "193.0.0.0/8" "194.0.0.0/7" "196.0.0.0/6" "200.0.0.0/6" "204.0.0.0/7" "206.0.0.0/9" "206.128.0.0/10" "206.192.0.0/12" "206.208.0.0/13" "206.216.0.0/16" "206.217.0.0/17" "206.217.128.0/18" "206.217.192.0/20" "206.217.208.0/21" "206.217.216.0/28" "206.217.216.16/30" "206.217.216.20/31" "206.217.216.22/32" "206.217.216.24/29" "206.217.216.32/27" "206.217.216.64/26" "206.217.216.128/25" "206.217.217.0/24" "206.217.218.0/23" "206.217.220.0/22" "206.217.224.0/19" "206.218.0.0/15" "206.220.0.0/14" "206.224.0.0/11" "207.0.0.0/8" "208.0.0.0/4" "224.0.0.0/3" ];
-
-          # Set this to the server IP and port.
-          endpoint = builtins.readFile ../../secrets/wg0-endpoint;
-
-          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
 }
