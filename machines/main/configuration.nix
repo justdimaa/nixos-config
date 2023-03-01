@@ -124,6 +124,7 @@
         mkhl.direnv
         eamodio.gitlens
         ms-toolsai.jupyter
+        zxh404.vscode-proto3
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscodeintellicode";
