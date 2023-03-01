@@ -10,6 +10,7 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
+  boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelPackages = pkgs.linuxPackages_6_1;
   hardware.enableRedistributableFirmware = true;
 
