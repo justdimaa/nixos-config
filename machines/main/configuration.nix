@@ -113,7 +113,6 @@
     jetbrains.idea-ultimate
     direnv
     nix-direnv
-    conky
     git
     podman-compose
     (vscode-with-extensions.override {
