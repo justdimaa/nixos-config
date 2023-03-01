@@ -123,6 +123,7 @@
         tamasfe.even-better-toml
         mkhl.direnv
         eamodio.gitlens
+        ms-toolsai.jupyter
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscodeintellicode";
@@ -135,6 +136,12 @@
           publisher = "leonardssh";
           version = "5.0.18";
           sha256 = "F/WB6RPmKvQDEehdlGMmBulpcsfXiOxuWGtXYiPVKvs=";
+        }
+        {
+          name = "language-julia";
+          publisher = "julialang";
+          version = "1.38.2";
+          sha256 = "B7jIdI+F39maX/I+rffIjmS59+B9atsr5rzX+c++Wqk=";
         }
       ];
     })
