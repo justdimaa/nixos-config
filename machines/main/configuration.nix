@@ -10,8 +10,8 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  #boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelPackages = pkgs.linuxPackages_6_2;
   hardware.enableRedistributableFirmware = true;
 
   # Bootloader.
@@ -29,6 +29,18 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.utf8";
+
+  # Add non latin symbols
+  fonts = {
+    fonts = with pkgs; [noto-fonts noto-fonts-cjk noto-fonts-extra];
+    enableDefaultFonts = true;
+    fontDir.enable = true;
+    fontconfig.defaultFonts = {
+      serif = [ "Noto Serif CJK JP" ];
+      sansSerif = [ "Noto Sans CJK JP" ];
+      monospace = [ "Noto Sans Mono CJK JP" ];
+    };
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -84,8 +96,8 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  # hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+  hardware.nvidia.modesetting.enable = true;
   # hardware.nvidia.open = true;
 
   networking.extraHosts = builtins.readFile ../../secrets/extra-hosts;
@@ -102,7 +114,8 @@
       dockerCompat = true;
 
       # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.dnsname.enable = true;
+      #defaultNetwork.dnsname.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
 
@@ -121,14 +134,14 @@
         matklad.rust-analyzer
         tamasfe.even-better-toml
         mkhl.direnv
-        eamodio.gitlens
         ms-toolsai.jupyter
         zxh404.vscode-proto3
+        redhat.java
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscodeintellicode";
           publisher = "VisualStudioExptTeam";
-          version = "1.2.30";
+          version = "1.2.29";
           sha256 = "Wl++d7mCOjgL7vmVVAKPQQgWRSFlqL4ry7v0wob1OyU=";
         }
         {
@@ -138,10 +151,34 @@
           sha256 = "F/WB6RPmKvQDEehdlGMmBulpcsfXiOxuWGtXYiPVKvs=";
         }
         {
-          name = "language-julia";
-          publisher = "julialang";
-          version = "1.38.2";
-          sha256 = "B7jIdI+F39maX/I+rffIjmS59+B9atsr5rzX+c++Wqk=";
+          name = "vscode-java-pack";
+          publisher = "vscjava";
+          version = "0.25.11";
+          sha256 = "NhbGaEXMIx6ZX2eCN1ZCIzbGVuhHZU/XDgdc34P+iNU=";
+        }
+        {
+          name = "vscode-maven";
+          publisher = "vscjava";
+          version = "0.41.0";
+          sha256 = "4XJX56IjZKq/nxpGwtxXrncr6YS/gbdgE7S716I8j8A=";
+        }
+        {
+          name = "vscode-gradle";
+          publisher = "vscjava";
+          version = "3.12.7";
+          sha256 = "dE9Hxs7cGhZkNK8BVpHGiY+/CDw2pCeVVVqwYid+GHU=";
+        }
+        {
+          name = "vscode-java-debug";
+          publisher = "vscjava";
+          version = "0.50.0";
+          sha256 = "5aq7k/juSYgQd67mOJiz3dod/8fZgiJ7G8r7uGmJ2s4=";
+        }
+        {
+          name = "vscode-java-test";
+          publisher = "vscjava";
+          version = "0.38.2";
+          sha256 = "XhqcnJBP91x26JUWzjGi095IqboesMrb4KDRYLx1er0=";
         }
       ];
     })
