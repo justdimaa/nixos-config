@@ -164,7 +164,7 @@ sudo nixos-rebuild switch --flake .#desktop --upgrade
 Flatpak requires a one-time repo addition after the first boot:
 
 ```bash
-flatpak remote-add --if-not-exists flathub [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
 ### Useful Commands Cheat Sheet
