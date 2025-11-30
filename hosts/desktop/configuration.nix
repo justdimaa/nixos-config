@@ -16,6 +16,7 @@
     ../../modules/hardware/nvidia.nix
     ../../modules/hardware/audio.nix
     ../../modules/hardware/bluetooth.nix
+    ../../modules/hardware/fuse.nix
     # ../../modules/hardware/printing.nix
     
     # Desktop
